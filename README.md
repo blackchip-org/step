@@ -58,7 +58,7 @@ Usage:
     -s, --start STEP   Start at the given step and run to completion.
     -e, --end STEP     Start at the beginning and stop after the given
                        step has completed.
-    -l, --list STEP    List all steps in the script
+    -l, --list         List all steps in the script
 
 Don't like the command line arguments? Then change them:
 
