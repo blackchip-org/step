@@ -23,7 +23,7 @@ See https://githug.com/blackchip-org/step for more information.
 
 %install
 rm -rf %{buildroot}
-install -m 755 -D step %{buildroot}/%{_datadir}/step
+install -m 755 -D step.sh %{buildroot}/%{_datadir}/step
 
 
 %clean
