@@ -1,5 +1,5 @@
 Name:		step
-Version:	0.1.0
+Version:	0.2.0
 Release:	1%{?dist}
 Summary:	Breaks up bash scripts into steps
 
@@ -37,5 +37,10 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Tue May 14 2013 Mike McGann <mike.mcgann@blackchip.org> - 0.2.0-1
+- Steps can now be listed with --list or -l
+- Failure reported when selecting only one step or a starting step
+  that does not exist.
+
 * Mon May 13 2013 Mike McGann <mike.mcgann@blackchip.org> - 0.1.0-1
 - Initial package
