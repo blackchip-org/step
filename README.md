@@ -28,7 +28,7 @@ With step, you can do this instead:
         think --about universe
     step everything \
         think --about everything
-    step analyze 
+    step analyze \
         analyze
     step answer \
         compute_answer
