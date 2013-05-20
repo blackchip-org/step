@@ -56,7 +56,7 @@ Now finish it up:
 
 Usage is as follows:
 
-    Usage: step.sh [options] command...
+    Usage: step [options] command...
 
     Options:
         -d, --debug          Set x flag after arguments have been processed
