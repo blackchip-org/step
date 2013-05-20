@@ -27,7 +27,7 @@ Options:
     -h, --help           Prints this usage
     -l, --list           List available steps
     -o, --only STEP      Only run STEP in command
-    -s, --skip STEP      Run command and skip step STEP. This option can be
+    -s, --skip STEP      Run command and skip STEP. This option can be
                          specified multiple times to skip additional steps
     -t, --to STEP        Run command and stop at STEP
     --version            Prints the version of this command
