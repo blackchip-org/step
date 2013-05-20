@@ -1,6 +1,8 @@
 step
 ====
 
+This is still a work in progress!
+
 Breaks up bash scripts into steps.
 
 This can be useful for creating processing steps in which each step
@@ -22,15 +24,15 @@ With step, you can do this instead:
 
     . /usr/share/step
 
-    step life \
+    run life \
         think --about life
-    step universe \
+    run universe \
         think --about universe
-    step everything \
+    run everything \
         think --about everything
-    step analyze \
+    run analyze \
         analyze
-    step answer \
+    run answer \
         compute_answer
 
 Call this script answer.sh. Run the script normally:
@@ -41,37 +43,35 @@ And all operations are executed in order. But the answer is 56 which
 is incorrect. While debugging, there is a problem with the universe
 step. Fix it and check its output by only executing that command:
 
-    ./answer.sh --only universe
+    step --only universe ./answer.sh
 
 Once that is working, see if the output from all the thinking looks
 okay before computing the answer:
 
-    ./answer.sh --end everything
+    step --to everything ./answer.sh
 
 Now finish it up:
 
-    ./answer.sh --start analyze
+    step --from analyze ./answer.sh
 
-Usage:
+Usage is as follows:
 
-    -o, --only STEP    Only run the given step.
-    -s, --start STEP   Start at the given step and run to completion.
-    -e, --end STEP     Start at the beginning and stop after the given
-                       step has completed.
-    -l, --list         List all steps in the script
+    Usage: step.sh [options] command...
 
-Don't like the command line arguments? Then change them:
+    Options:
+        -d, --debug          Set x flag after arguments have been processed
+        -f, --from STEP      Start exection of command at STEP
+        -h, --help           Prints this usage
+        -l, --list           List available steps
+        -o, --only STEP      Only run STEP in command
+        -s, --skip STEP      Run command and skip step STEP. This option can be
+                             specified multiple times to skip additional steps
+        -t, --to STEP        Run command and stop at STEP
+        --version            Prints the version of this command
 
-    STEP_ONLY_SHORT="a"
-    STEP_ONLY_LONG="aonly"
-    STEP_START_SHORT="b"
-    STEP_START_LONG="bstart"
-    STEP_END_SHORT="c"
-    STEP_END_LONG="cend"
+    Notes:
+        If no options are specified, all steps in command are executed.
 
-    . /usr/share/step
-
-[Full Example](https://github.com/blackchip-org/bmng-proc/blob/master/EPSG_3995.sh)
 
 Have fun!
 

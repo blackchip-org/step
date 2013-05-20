@@ -16,13 +16,16 @@
 
 BASEDIR=$(dirname "$0")
 
-. $BASEDIR/../../step.sh
+. $BASEDIR/../../step.lib.sh
 
-step step1 \
+run step1 \
     echo "1"
-step step2 \
+run step2 \
     echo "2"
-step step3 \
+run step3 \
     echo "3"
-step step4 \
+step4() {
+    echo "4"
+}
+run -f step4 \
     echo "4"

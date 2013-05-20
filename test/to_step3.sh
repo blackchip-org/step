@@ -15,16 +15,15 @@
 # limitations under the License.
 
 BASEDIR=$(dirname "$0")
+STEP="$BASEDIR"/../step.sh
 
 expected() {
     cat <<EOF
+1
 2
 3
-4
 EOF
 }
 
-diff <($BASEDIR/prog/step4-custom.sh -S step2) <(expected) >/dev/null
-
-
+diff <($STEP --to step3 $BASEDIR/prog/step4.sh) <(expected) >/dev/null
 

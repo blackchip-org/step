@@ -15,12 +15,15 @@
 # limitations under the License.
 
 BASEDIR=$(dirname "$0")
+STEP="$BASEDIR"/../step.sh
 
-RESULT=$($BASEDIR/prog/step4.sh --start nostep 2>&1)
-[ $? -ne 0 ] || exit 1
-[ "$RESULT" == "No such step: nostep" ]
+expected() {
+    cat <<EOF
+2
+3
+4
+EOF
+}
 
-
-
-
+diff <($STEP -f step2 $BASEDIR/prog/step4.sh) <(expected) >/dev/null
 

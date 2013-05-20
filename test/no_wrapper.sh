@@ -27,5 +27,3 @@ EOF
 
 diff <($BASEDIR/prog/step4.sh) <(expected) >/dev/null
 
-
-

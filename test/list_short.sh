@@ -15,6 +15,7 @@
 # limitations under the License.
 
 BASEDIR=$(dirname "$0")
+STEP="$BASEDIR"/../step.sh
 
 expected() {
     cat <<EOF
@@ -25,7 +26,5 @@ step4
 EOF
 }
 
-diff <($BASEDIR/prog/step4.sh -l) <(expected) >/dev/null
-
-
+diff <($STEP -l $BASEDIR/prog/step4.sh) <(expected) >/dev/null
 
