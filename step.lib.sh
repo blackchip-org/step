@@ -26,6 +26,19 @@ __STEP_SKIPS=""
 
 while true; do 
     case "$1" in
+	--banner|-b)
+	    __STEP_BANNER=1
+	    shift
+	    ;;
+	--command|-c)
+	    __STEP_COMMAND=1
+	    shift
+	    ;;
+	--verbose|-v)
+	    __STEP_BANNER=1
+	    __STEP_COMMAND=1
+	    shift
+	    ;;
 	--only|-o)
 	    __STEP_ONLY=$2
 	    __STEP_REQUESTED=$2
@@ -59,11 +72,23 @@ while true; do
 	    break
 	    ;;
 	*)
-	    shift
 	    break
 	    ;;
     esac
 done
+
+step_banner() {
+    local prog=$1
+    local step=$2
+
+    echo -e "\n===== $prog: $step"
+}
+STEP_BANNER=step_banner
+
+step_command() {
+    echo "+ $@"
+}
+STEP_COMMAND=step_command
 
 if [ "$__STEP_DEBUG" ] ; then
     set -x
@@ -74,6 +99,7 @@ run() {
     if [ "$1" == "-f" ] ; then
 	shift
 	step="$1"
+	local is_function=true
     else
 	step="$1"
 	shift
@@ -105,10 +131,25 @@ run() {
         return 0
     fi
     __STEP_EXECUTED=1
-    "$@"
+    if [ "$__STEP_BANNER" ] ; then
+	$STEP_BANNER $(basename "$0") $step
+    fi
+    if [ "$__STEP_COMMAND" ] ; then
+	if [ "$is_function" ] ; then
+	    set -x
+	else
+	    $STEP_COMMAND "$@"
+	fi
+    fi
+
+    "$@" 
+    local return_code=$?
+    set +x
+
     if [ "$step" == "$__STEP_TO" ] ; then
         __STEP_DISABLED=1
     fi
+    return $return_code
 }
 
 __step_check_exit() {

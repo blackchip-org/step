@@ -15,16 +15,15 @@
 # limitations under the License.
 
 BASEDIR=$(dirname "$0")
+STEP="$BASEDIR"/../step.sh
 
-. $BASEDIR/../../step.lib.sh
-
-run step1 \
-    echo "1"
-run step2 \
-    echo "2"
-run step3 \
-    echo "3"
-step4() {
-    echo "4"
+expected() {
+    cat <<EOF
+2
+3
+EOF
 }
-run -f step4 
+
+diff <($STEP --from step2 --to step3 $BASEDIR/prog/step4.sh) \
+    <(expected) >/dev/null
+

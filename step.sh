@@ -22,6 +22,8 @@ usage() {
 Usage: $PROG [options] command...
 
 Options:
+    -b, --banner         Show banner before running each step
+    -c, --command        Show command to be exected in each step
     -d, --debug          Set x flag after arguments have been processed
     -f, --from STEP      Start exection of command at STEP
     -h, --help           Prints this usage
@@ -30,6 +32,7 @@ Options:
     -s, --skip STEP      Run command and skip STEP. This option can be
                          specified multiple times to skip additional steps
     -t, --to STEP        Run command and stop at STEP
+    -v, --verbose        Same as specifying --banner and --command
     --version            Prints the version of this command
 
 Notes:
@@ -37,8 +40,8 @@ Notes:
 EOF
 }
 
-export __STEP_SHORT_OPTS="df:hlo:s:t:v"
-export __STEP_LONG_OPTS="debug,from:,help,list,only:,skip:,to:,version"
+export __STEP_SHORT_OPTS="bcdf:hlo:s:t:v"
+export __STEP_LONG_OPTS="banner,command,debug,from:,help,list,only:,skip:,to:,verbose,version"
 
 ARGS=$(getopt -o "$__STEP_SHORT_OPTS" -l "$__STEP_LONG_OPTS" -n "$PROG" -- $@ )
 
@@ -55,7 +58,7 @@ while true; do
 	    __STEP_ARGS="$__STEP_ARGS $1 $2"
 	    shift 2
 	    ;;
-	--list|-l|--debug|-d)
+	--banner|-b|--command|-c|--list|-l|--debug|-d|--verbose|-v)
 	    __STEP_ARGS="$__STEP_ARGS $1"
 	    shift
 	    ;;

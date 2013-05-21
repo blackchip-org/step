@@ -14,17 +14,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-BASEDIR=$(dirname "$0")
+set -e
 
-. $BASEDIR/../../step.lib.sh
+DESTDIR=~/rpmbuild/SOURCES
 
-run step1 \
-    echo "1"
-run step2 \
-    echo "2"
-run step3 \
-    echo "3"
-step4() {
-    echo "4"
-}
-run -f step4 
+mkdir -p $DESTDIR
+git archive --prefix=step/ HEAD | gzip > $DESTDIR/step.tar.gz
