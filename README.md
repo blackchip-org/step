@@ -1,7 +1,7 @@
 step
 ====
 
-This is still a work in progress!
+This may only be useful for me. Your mileage may vary.
 
 Breaks up bash scripts into steps.
 
@@ -59,7 +59,8 @@ Usage is as follows:
     Usage: step [options] command...
 
     Options:
-        -d, --debug          Set x flag after arguments have been processed
+        -b, --banner         Show banner before running each step
+        -c, --command        Show command to be exected in each step
         -f, --from STEP      Start exection of command at STEP
         -h, --help           Prints this usage
         -l, --list           List available steps
@@ -67,13 +68,13 @@ Usage is as follows:
         -s, --skip STEP      Run command and skip STEP. This option can be
                              specified multiple times to skip additional steps
         -t, --to STEP        Run command and stop at STEP
+        -v, --verbose        Same as specifying --banner and --command
         --version            Prints the version of this command
 
     Notes:
         If no options are specified, all steps in command are executed.
 
 
-Have fun!
 
 
 
