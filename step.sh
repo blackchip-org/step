@@ -15,7 +15,7 @@
 # limitations under the License.
 
 PROG=$(basename "$0")
-VERSION="0.3.0"
+VERSION="1.0.0"
 
 usage() {
     cat <<EOF
