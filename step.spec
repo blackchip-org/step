@@ -1,5 +1,5 @@
 Name:		step
-Version:	0.3.0
+Version:	1.0.0
 Release:	1%{?dist}
 Summary:	Breaks up bash scripts into steps
 
@@ -9,22 +9,24 @@ Source0:	%{name}.tar.gz
 
 BuildArch:      noarch
 
+BuildRequires:	docutils
+
 %description
 Breaks up bash scripts into steps
 
-See https://githug.com/blackchip-org/step for more information.
+See https://github.com/blackchip-org/step for more information.
 
 %prep
 %setup -q -n %{name}
 
 
 %build
+make
 
 
 %install
 rm -rf %{buildroot}
-install -m 755 -D step.sh %{buildroot}/%{_bindir}/step
-install -m 755 -D step.lib.sh %{buildroot}/%{_datadir}/step
+make install DESTDIR=%{buildroot}
 
 
 %clean

@@ -14,13 +14,20 @@
 
 DESTDIR=/usr/local
 
-all: build
+all: man
 
-build:
-	@echo "Nothing to build: Install with 'make install'"
+man:
+	mkdir -p build/man
+	rst2man doc/step.1.rst build/man/step.1 
+	cat build/man/step.1 | gzip > build/man/step.1.gz
 
 install:
 	install -m 755 -d $(DESTDIR)/bin
 	install -m 755 step.sh $(DESTDIR)/bin/step
 	install -m 755 -d $(DESTDIR)/share
 	install -m 644 step.lib.sh $(DESTDIR)/share/step
+	install -m 755 -d $(DESTDIR)/share/man/man1
+	install -m 644 build/man/step.1.gz $(DESTDIR)/share/man/man1/step.1.gz
+
+clean:
+	rm -rf build
