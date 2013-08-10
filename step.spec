@@ -26,7 +26,7 @@ make
 
 %install
 rm -rf %{buildroot}
-make install DESTDIR=%{buildroot}
+make install DESTDIR=%{buildroot}/usr
 
 
 %clean
@@ -38,9 +38,16 @@ rm -rf %{buildroot}
 %doc README.md LICENSE
 %{_bindir}/step
 %{_datadir}/step
+%{_mandir}/*/*
 
 
 %changelog
+* Sat Aug 10 2013 Mike McGann <mike.mcgann@blackchip.org> - 1.0.0-1
+- The --list option can now be used as a dry-run
+- Created man page
+- Error message shown when no command is run
+- Created Makefile
+
 * Tue May 21 2013 Mike McGann <mike.mcgann@blackchip.org> - 0.3.0-1
 - Now invoked by step wrapper script
 - Feature to skip steps added
