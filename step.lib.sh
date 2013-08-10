@@ -146,6 +146,10 @@ run() {
     local return_code=$?
     set +x
 
+    if [ $return_code -ne 0 ] ; then
+	exit $return_code
+    fi
+
     if [ "$step" == "$__STEP_TO" ] ; then
         __STEP_DISABLED=1
     fi
