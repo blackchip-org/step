@@ -106,10 +106,6 @@ run() {
     fi
     [ "$step" ] || __step_die "No step specified in run"
 
-    if [ "$__STEP_LIST" ] ; then
-        echo $step
-        return 0
-    fi
     if [ "$__STEP_ONLY" ] && [ "$step" != "$__STEP_ONLY" ] ; then
         return 0
     fi
@@ -134,20 +130,25 @@ run() {
     if [ "$__STEP_BANNER" ] ; then
 	$STEP_BANNER $(basename "$0") $step
     fi
-    if [ "$__STEP_COMMAND" ] ; then
-	if [ "$is_function" ] ; then
-	    set -x
-	else
-	    $STEP_COMMAND "$@"
+
+    if [ "$__STEP_LIST" ] ; then
+	echo "$step"
+    else
+	if [ "$__STEP_COMMAND" ] ; then
+	    if [ "$is_function" ] ; then
+		set -x
+	    else
+		$STEP_COMMAND "$@"
+	    fi
 	fi
-    fi
 
-    "$@" 
-    local return_code=$?
-    set +x
+	"$@" 
+	local return_code=$?
+	set +x
 
-    if [ $return_code -ne 0 ] ; then
-	exit $return_code
+	if [ $return_code -ne 0 ] ; then
+	    exit $return_code
+	fi
     fi
 
     if [ "$step" == "$__STEP_TO" ] ; then

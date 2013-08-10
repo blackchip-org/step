@@ -58,7 +58,7 @@ while true; do
 	    __STEP_ARGS="$__STEP_ARGS $1 $2"
 	    shift 2
 	    ;;
-	--banner|-b|--command|-c|--list|-l|--debug|-d|--verbose|-v)
+	--banner|-b|--command|-c|--list|-l|-d|--debug|--verbose|-v)
 	    __STEP_ARGS="$__STEP_ARGS $1"
 	    shift
 	    ;;
