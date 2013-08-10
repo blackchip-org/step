@@ -14,6 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# TEST: Check that the script executes normally when not run through "step"
+
 BASEDIR=$(dirname "$0")
 
 expected() {

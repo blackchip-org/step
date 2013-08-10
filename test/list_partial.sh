@@ -14,27 +14,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# TEST: Check that step banners are printed when using the --banner option
+# TEST: Check that --list can be used as a dry run for specific steps
 
 BASEDIR=$(dirname "$0")
 STEP="$BASEDIR"/../step.sh
 
 expected() {
     cat <<EOF
-
-===== step4.sh: step1
-1
-
-===== step4.sh: step2
-2
-
-===== step4.sh: step3
-3
-
-===== step4.sh: step4
-4
+step2
+step3
 EOF
 }
 
-diff <($STEP --banner $BASEDIR/prog/step4.sh) <(expected) >/dev/null
+diff <($STEP --list --from step2 --to step3 $BASEDIR/prog/step4.sh) \
+    <(expected) >/dev/null
 

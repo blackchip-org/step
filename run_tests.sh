@@ -20,7 +20,7 @@ FAILED=0
 PASSED=0
 for TEST in $TESTS; do 
     if $TEST; then
-	RESULT="PASS" 
+	RESULT="pass" 
 	PASSED=$(($PASSED + 1))
     else
 	RESULT="FAIL"

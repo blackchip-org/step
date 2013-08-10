@@ -14,6 +14,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# TEST: Check that steps specified are skipped when listed multiple times
+# on the command line
+
 BASEDIR=$(dirname "$0")
 STEP="$BASEDIR"/../step.sh
 

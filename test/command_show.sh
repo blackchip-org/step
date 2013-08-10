@@ -21,20 +21,19 @@ STEP="$BASEDIR"/../step.sh
 
 expected() {
     cat <<EOF
-
-===== step4.sh: step1
++ echo 1
 1
-
-===== step4.sh: step2
++ echo 2
 2
-
-===== step4.sh: step3
++ echo 3
 3
-
-===== step4.sh: step4
++ step4
++ echo 4
 4
++ local return_code=0
++ set +x
 EOF
 }
 
-diff <($STEP --banner $BASEDIR/prog/step4.sh) <(expected) >/dev/null
+diff <($STEP --command $BASEDIR/prog/step4.sh 2>&1) <(expected) >/dev/null
 

@@ -15,6 +15,7 @@
 # limitations under the License.
 
 # TEST: Check that there is an error when running step without any commands
+
 BASEDIR=$(dirname "$0")
 STEP="$BASEDIR"/../step.sh
 

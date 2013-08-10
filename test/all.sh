@@ -14,6 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# TEST: Ensure all steps are run if no arguments are given
+
 BASEDIR=$(dirname "$0")
 STEP="$BASEDIR"/../step.sh
 

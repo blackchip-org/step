@@ -14,6 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# TEST: Check that step banners are printed when using the -b option
+
 BASEDIR=$(dirname "$0")
 STEP="$BASEDIR"/../step.sh
 

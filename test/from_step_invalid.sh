@@ -14,6 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# TEST: Check that an error is printed if a step could not be found
+
 BASEDIR=$(dirname "$0")
 STEP="$BASEDIR"/../step.sh
 

@@ -14,6 +14,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# TEST: If there is an error in a step that is an inline command, the script
+# should exit
+
 BASEDIR=$(dirname "$0")
 STEP="$BASEDIR"/../step.sh
 

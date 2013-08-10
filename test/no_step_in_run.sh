@@ -14,27 +14,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# TEST: Check that step banners are printed when using the --banner option
+# TEST: Check that an error is printed if no step is in a run
 
 BASEDIR=$(dirname "$0")
 STEP="$BASEDIR"/../step.sh
 
-expected() {
-    cat <<EOF
+RESULT=$($STEP $BASEDIR/prog/run_no_step.sh 2>&1)
+[ $? -ne 0 ] || exit 1
 
-===== step4.sh: step1
-1
+# Remove all usage text
+RESULT=$(echo $RESULT | sed -e 's/ Usage.*//')
+[ "$RESULT" == "run_no_step.sh (step): No step specified in run" ]
 
-===== step4.sh: step2
-2
-
-===== step4.sh: step3
-3
-
-===== step4.sh: step4
-4
-EOF
-}
-
-diff <($STEP --banner $BASEDIR/prog/step4.sh) <(expected) >/dev/null
 

@@ -14,27 +14,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# TEST: Check that step banners are printed when using the --banner option
+# TEST: Check that -f and --function both work for the run command
 
 BASEDIR=$(dirname "$0")
 STEP="$BASEDIR"/../step.sh
 
 expected() {
     cat <<EOF
-
-===== step4.sh: step1
-1
-
-===== step4.sh: step2
-2
-
-===== step4.sh: step3
-3
-
-===== step4.sh: step4
-4
+function short
+function long
 EOF
 }
 
-diff <($STEP --banner $BASEDIR/prog/step4.sh) <(expected) >/dev/null
+diff <($STEP $BASEDIR/prog/step_function_long.sh) <(expected) >/dev/null
 
