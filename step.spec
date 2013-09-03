@@ -1,6 +1,6 @@
 Name:		step
 Version:	1.0.1
-Release:	0%{?dist}
+Release:	1%{?dist}
 Summary:	Breaks up bash scripts into steps
 
 License:	ASL 2.0
@@ -42,6 +42,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Mon Sep 2 2013 Mike McGann <mike.mcgann@blackchip.org> - 1.0.1-1
+- Fixes 12 and 13
+
 * Sat Aug 10 2013 Mike McGann <mike.mcgann@blackchip.org> - 1.0.0-1
 - The --list option can now be used as a dry-run
 - Created man page
