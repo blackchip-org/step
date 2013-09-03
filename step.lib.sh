@@ -114,7 +114,7 @@ EOF
 
 run() {
     local step=""
-    local args=$(getopt -o "$__RUN_SHORT_OPTS" -l "$__RUN_LONG_OPTS" -n "$__STEP_PROG" -- $@ )
+    local args=$(POSIXLY_CORRECT=1 getopt -o "$__RUN_SHORT_OPTS" -l "$__RUN_LONG_OPTS" -n "$__STEP_PROG" -- $@ )
     if [ $? -ne 0 ] ; then
 	__run_usage
 	exit 1
