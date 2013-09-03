@@ -85,7 +85,7 @@ if [ $# -eq 0 ] ; then
     exit 1
 fi
 
-__STEP_ARGS="$__STEP_ARGS" exec "$@"
+__STEP_ARGS="$__STEP_ARGS" "$@"
 
 
 	    

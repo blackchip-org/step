@@ -1,6 +1,6 @@
 Name:		step
-Version:	1.0.0
-Release:	1%{?dist}
+Version:	1.0.1
+Release:	0%{?dist}
 Summary:	Breaks up bash scripts into steps
 
 License:	ASL 2.0
