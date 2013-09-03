@@ -9,7 +9,7 @@ Breaks up bash scripts into steps
 :Author: blackchip.org
 :Date: August 10, 2013
 :Copyright: 2013, blackchip.org
-:Version: 1.0.0
+:Version: 1.0
 :Manual section: 1
 :Manual group: Utilities
 
