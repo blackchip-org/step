@@ -147,6 +147,12 @@ run() {
 	exit 1
     fi
 
+    if [ ! "$is_function" ] && [ "$#" -eq 0 ] ; then
+	__step_error "No command specified in run"
+	__run_usage
+	exit 1
+    fi
+
     # Skip if only a specific step is to be run and this is not the step
     if [ "$__STEP_ONLY" ] && [ "$step" != "$__STEP_ONLY" ] ; then
         return 0
