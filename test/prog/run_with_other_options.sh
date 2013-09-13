@@ -16,7 +16,7 @@
 
 BASEDIR=$(dirname "$0")
 
-. $BASEDIR/../../step.lib.sh
+. $BASEDIR/../../share/step
 
-run step1 \
+step step1 \
     echo -n -e "1\n"

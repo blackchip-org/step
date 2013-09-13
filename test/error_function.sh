@@ -18,7 +18,7 @@
 # exit
 
 BASEDIR=$(dirname "$0")
-STEP="$BASEDIR"/../step.sh
+RUN="$BASEDIR"/../bin/run
 
 expected() {
     cat <<EOF
@@ -26,11 +26,11 @@ expected() {
 EOF
 }
 
-diff <($STEP $BASEDIR/prog/step_error_function.sh) <(expected) >/dev/null
+diff <($RUN $BASEDIR/prog/step_error_function.sh) <(expected) >/dev/null
 [ $? -eq 0 ] || exit 1
 
 # Make sure return code is passed back
-$STEP $BASEDIR/prog/step_error_function.sh >/dev/null
+$RUN $BASEDIR/prog/step_error_function.sh >/dev/null
 [ $? -eq 0 ] && exit 1
 exit 0
 

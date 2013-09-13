@@ -17,7 +17,7 @@
 # TEST: Check that --list shows all step names
 
 BASEDIR=$(dirname "$0")
-STEP="$BASEDIR"/../step.sh
+RUN="$BASEDIR"/../bin/run
 
 expected() {
     cat <<EOF
@@ -28,5 +28,5 @@ step4
 EOF
 }
 
-diff <($STEP --list $BASEDIR/prog/step4.sh) <(expected) >/dev/null
+diff <($RUN --list $BASEDIR/prog/step4.sh) <(expected) >/dev/null
 

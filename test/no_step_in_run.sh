@@ -17,13 +17,13 @@
 # TEST: Check that an error is printed if no step is in a run
 
 BASEDIR=$(dirname "$0")
-STEP="$BASEDIR"/../step.sh
+RUN="$BASEDIR"/../bin/run
 
-RESULT=$($STEP $BASEDIR/prog/run_no_step.sh 2>&1)
+RESULT=$($RUN "$BASEDIR"/prog/run_no_step.sh 2>&1)
 [ $? -ne 0 ] || exit 1
 
 # Remove all usage text
 RESULT=$(echo $RESULT | sed -e 's/ Usage.*//')
-[ "$RESULT" == "run_no_step.sh (step): No step specified in run" ]
+[ "$RESULT" == "run_no_step.sh (run): No step specified" ]
 
 

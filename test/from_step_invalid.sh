@@ -17,10 +17,10 @@
 # TEST: Check that an error is printed if a step could not be found
 
 BASEDIR=$(dirname "$0")
-STEP="$BASEDIR"/../step.sh
+RUN="$BASEDIR"/../bin/run
 
-RESULT=$($STEP --from nostep $BASEDIR/prog/step4.sh 2>&1)
+RESULT=$($RUN --from nostep $BASEDIR/prog/step4.sh 2>&1)
 [ $? -ne 0 ] || exit 1
-[ "$RESULT" == "step4.sh (step): No such step: nostep" ]
+[ "$RESULT" == "step4.sh (run): No such step: nostep" ]
 
 

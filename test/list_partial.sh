@@ -17,7 +17,7 @@
 # TEST: Check that --list can be used as a dry run for specific steps
 
 BASEDIR=$(dirname "$0")
-STEP="$BASEDIR"/../step.sh
+RUN="$BASEDIR"/../bin/run
 
 expected() {
     cat <<EOF
@@ -26,6 +26,6 @@ step3
 EOF
 }
 
-diff <($STEP --list --from step2 --to step3 $BASEDIR/prog/step4.sh) \
+diff <($RUN --list --from step2 --to step3 $BASEDIR/prog/step4.sh) \
     <(expected) >/dev/null
 

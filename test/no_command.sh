@@ -17,9 +17,9 @@
 # TEST: Check that there is an error when running step without any commands
 
 BASEDIR=$(dirname "$0")
-STEP="$BASEDIR"/../step.sh
+RUN="$BASEDIR"/../bin/run
 
-$STEP --from step1 --to step2 >/dev/null
+$RUN --from step1 --to step2 >/dev/null
 [ $? -eq 0 ] && exit 1
 exit 0
 

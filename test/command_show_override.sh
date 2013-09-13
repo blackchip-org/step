@@ -17,7 +17,7 @@
 # TEST: Check that command printing can be overriden
 
 BASEDIR=$(dirname "$0")
-STEP="$BASEDIR"/../step.sh
+RUN="$BASEDIR"/../bin/run
 
 expected() {
     cat <<EOF
@@ -35,6 +35,6 @@ COMMAND: echo 3
 EOF
 }
 
-diff <($STEP --command $BASEDIR/prog/step4_command_override.sh 2>&1) \
+diff <($RUN --command $BASEDIR/prog/step4_command_override.sh 2>&1) \
     <(expected) >/dev/null
 

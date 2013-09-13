@@ -17,7 +17,7 @@
 # TEST: Ensure all steps are run if no arguments are given
 
 BASEDIR=$(dirname "$0")
-STEP="$BASEDIR"/../step.sh
+RUN="$BASEDIR"/../bin/run
 
 expected() {
     cat <<EOF
@@ -28,5 +28,5 @@ expected() {
 EOF
 }
 
-diff <($STEP $BASEDIR/prog/step4.sh) <(expected) >/dev/null
+diff <($RUN $BASEDIR/prog/step4.sh) <(expected) >/dev/null
 

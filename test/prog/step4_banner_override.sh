@@ -16,20 +16,20 @@
 
 BASEDIR=$(dirname "$0")
 
-. $BASEDIR/../../step.lib.sh
+. $BASEDIR/../../share/step
 
 my_banner() {
     echo "program: $1, step: $2"
 }
-STEP_BANNER=my_banner
+RUN_BANNER=my_banner
 
-run step1 \
+step step1 \
     echo "1"
-run step2 \
+step step2 \
     echo "2"
-run step3 \
+step step3 \
     echo "3"
 step4() {
     echo "4"
 }
-run -f step4 
+step -f step4 

@@ -16,8 +16,8 @@
 
 BASEDIR=$(dirname "$0")
 
-. $BASEDIR/../../step.lib.sh
+. $BASEDIR/../../share/step
 
-run a-step
+step a-step
 
 

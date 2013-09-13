@@ -17,7 +17,7 @@
 # TEST: Check that banners can be overriden
 
 BASEDIR=$(dirname "$0")
-STEP="$BASEDIR"/../step.sh
+RUN="$BASEDIR"/../bin/run
 
 expected() {
     cat <<EOF
@@ -32,6 +32,6 @@ program: step4_banner_override.sh, step: step4
 EOF
 }
 
-diff <($STEP --banner $BASEDIR/prog/step4_banner_override.sh) \
+diff <($RUN --banner $BASEDIR/prog/step4_banner_override.sh) \
     <(expected) >/dev/null
 

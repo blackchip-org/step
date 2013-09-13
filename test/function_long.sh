@@ -17,7 +17,7 @@
 # TEST: Check that -f and --function both work for the run command
 
 BASEDIR=$(dirname "$0")
-STEP="$BASEDIR"/../step.sh
+RUN="$BASEDIR"/../bin/run
 
 expected() {
     cat <<EOF
@@ -26,5 +26,5 @@ function long
 EOF
 }
 
-diff <($STEP $BASEDIR/prog/step_function_long.sh) <(expected) >/dev/null
+diff <($RUN $BASEDIR/prog/step_function_long.sh) <(expected) >/dev/null
 

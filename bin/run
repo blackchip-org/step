@@ -15,7 +15,7 @@
 # limitations under the License.
 
 PROG=$(basename "$0")
-VERSION="1.0.1"
+VERSION="2.0.0"
 
 usage() {
     cat <<EOF
@@ -40,26 +40,26 @@ Notes:
 EOF
 }
 
-export __STEP_SHORT_OPTS="bcdf:hlo:s:t:v"
-export __STEP_LONG_OPTS="banner,command,debug,from:,help,list,only:,skip:,to:,verbose,version"
+export __RUN_SHORT_OPTS="bcdf:hlo:s:t:v"
+export __RUN_LONG_OPTS="banner,command,debug,from:,help,list,only:,skip:,to:,verbose,version"
 
-ARGS=$(getopt -o "$__STEP_SHORT_OPTS" -l "$__STEP_LONG_OPTS" -n "$PROG" -- $@ )
+ARGS=$(getopt -o "$__RUN_SHORT_OPTS" -l "$__RUN_LONG_OPTS" -n "$PROG" -- $@ )
 
 if [ $? -ne 0 ] ; then
     exit 1
 fi
 
-__STEP_ARGS=""
+__RUN_ARGS=""
 eval set -- "$@"
 
 while true; do
     case "$1" in
 	--from|-f|--only|-o|--skip|-s|--to|-t)
-	    __STEP_ARGS="$__STEP_ARGS $1 $2"
+	    __RUN_ARGS="$__RUN_ARGS $1 $2"
 	    shift 2
 	    ;;
 	--banner|-b|--command|-c|--list|-l|-d|--debug|--verbose|-v)
-	    __STEP_ARGS="$__STEP_ARGS $1"
+	    __RUN_ARGS="$__RUN_ARGS $1"
 	    shift
 	    ;;
 	-h|--help)
@@ -85,7 +85,7 @@ if [ $# -eq 0 ] ; then
     exit 1
 fi
 
-__STEP_ARGS="$__STEP_ARGS" "$@"
+__RUN_ARGS="$__RUN_ARGS" "$@"
 
 
 	    

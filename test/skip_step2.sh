@@ -17,7 +17,7 @@
 # TEST: Check that the step specified with --skip is not executed
 
 BASEDIR=$(dirname "$0")
-STEP="$BASEDIR"/../step.sh
+RUN="$BASEDIR"/../bin/run
 
 expected() {
     cat <<EOF
@@ -27,5 +27,5 @@ expected() {
 EOF
 }
 
-diff <($STEP --skip step2 $BASEDIR/prog/step4.sh) <(expected) >/dev/null
+diff <($RUN --skip step2 $BASEDIR/prog/step4.sh) <(expected) >/dev/null
 

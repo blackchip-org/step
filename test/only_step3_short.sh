@@ -17,7 +17,7 @@
 # TEST: Check that only one step is executed with -o
 
 BASEDIR=$(dirname "$0")
-STEP="$BASEDIR"/../step.sh
+RUN="$BASEDIR"/../bin/run
 
 expected() {
     cat <<EOF
@@ -25,5 +25,5 @@ expected() {
 EOF
 }
 
-diff <($STEP -o step3 $BASEDIR/prog/step4.sh) <(expected) >/dev/null
+diff <($RUN -o step3 $BASEDIR/prog/step4.sh) <(expected) >/dev/null
 

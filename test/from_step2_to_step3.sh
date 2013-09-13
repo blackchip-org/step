@@ -17,7 +17,7 @@
 # TEST: Check that steps before --from and after --to are not executed
 
 BASEDIR=$(dirname "$0")
-STEP="$BASEDIR"/../step.sh
+RUN="$BASEDIR"/../bin/run
 
 expected() {
     cat <<EOF
@@ -26,6 +26,6 @@ expected() {
 EOF
 }
 
-diff <($STEP --from step2 --to step3 $BASEDIR/prog/step4.sh) \
+diff <($RUN --from step2 --to step3 $BASEDIR/prog/step4.sh) \
     <(expected) >/dev/null
 

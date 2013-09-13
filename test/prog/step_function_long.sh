@@ -16,15 +16,15 @@
 
 BASEDIR=$(dirname "$0")
 
-. $BASEDIR/../../step.lib.sh
+. $BASEDIR/../../share/step
 
 step1() {
     echo "function short"
 }
-run -f step1
+step -f step1
 
 step2() {
     echo "function long"
 }
-run --function step2
+step --function step2
 

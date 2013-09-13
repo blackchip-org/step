@@ -18,7 +18,7 @@
 # command to execute.
 
 BASEDIR=$(dirname "$0")
-STEP="$BASEDIR"/../step.sh
+RUN="$BASEDIR"/../bin/run
 
 expected() {
     cat <<EOF
@@ -26,5 +26,5 @@ expected() {
 EOF
 }
 
-diff <($STEP $BASEDIR/prog/run_with_other_options.sh) <(expected) >/dev/null
+diff <($RUN $BASEDIR/prog/run_with_other_options.sh) <(expected) >/dev/null
 

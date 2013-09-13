@@ -17,7 +17,7 @@
 # TEST: Check that step banners are printed when using the --banner option
 
 BASEDIR=$(dirname "$0")
-STEP="$BASEDIR"/../step.sh
+RUN="$BASEDIR"/../bin/run
 
 expected() {
     cat <<EOF
@@ -35,5 +35,5 @@ expected() {
 EOF
 }
 
-diff <($STEP --command $BASEDIR/prog/step4.sh 2>&1) <(expected) >/dev/null
+diff <($RUN --command $BASEDIR/prog/step4.sh 2>&1) <(expected) >/dev/null
 
