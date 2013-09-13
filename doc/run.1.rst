@@ -1,22 +1,22 @@
-====
-step
-====
+===
+run
+===
 
----------------------------------
-Breaks up bash scripts into steps
----------------------------------
+-----------------------------------------
+Executes a bash script with defined steps
+-----------------------------------------
 
 :Author: blackchip.org
 :Date: August 10, 2013
 :Copyright: 2013, blackchip.org
-:Version: 1.0
+:Version: 2.0
 :Manual section: 1
 :Manual group: Utilities
 
 SYNOPSIS
 ========
 
-step [options] command...
+run [options] command...
 
 DESCRIPTION
 ===========
@@ -40,11 +40,11 @@ while creating this script.
 With step, you can do this instead:
 
     |
-    | run life        think --about life
-    | run universe    think --about universe
-    | run everything  think --about everything
-    | run analyze     analyze
-    | run answer      compute_answer
+    | step life        think --about life
+    | step universe    think --about universe
+    | step everything  think --about everything
+    | step analyze     analyze
+    | step answer      compute_answer
 
 Call this script answer.sh. Run the script normally:
 
@@ -56,18 +56,18 @@ is incorrect. While debugging, there is a problem with the universe
 step. Fix it and check its output by only executing that command:
 
     |
-    | step --only universe answer.sh
+    | run --only universe answer.sh
 
 Once that is working, see if the output from all the thinking looks
 okay before computing the answer:
 
     |
-    | step --to everything answer.sh
+    | run --to everything answer.sh
 
 Now finish it up:
 
     | 
-    | step --from analyze answer.sh
+    | run --from analyze answer.sh
 
 OPTIONS
 =======
@@ -111,10 +111,10 @@ NOTES
 
 Scripts to be executed using step should source either /usr/share/step
 or /usr/local/share/step depending on the installation location. This
-provides the *run* command used for specifying a step.
+provides the *step* command used for specifying a step.
 
-Step simply controls the conditional execution of *run* commands. All
-other commands in the script that do not use *run* are executed
+*run* simply controls the conditional execution of *step* commands. All
+other commands in the script that do not use *step* are executed
 unconditionally. 
 
 Steps that involve more than one command are best placed in a
@@ -125,9 +125,9 @@ function:
     |     echo "command 1"
     |     echo "command 2"
     | }
-    | run -f step1
+    | step -f step1
 
-When using *run*, using an *-f* or *--function* option indicates that
+When using *step*, an *-f* or *--function* option indicates that
 the name of the step is also the name of the function to be executed.
 
 EXAMPLES
@@ -136,32 +136,32 @@ EXAMPLES
 Given the following script, named example.sh:
 
     |
-    | run step1 echo 1
-    | run step2 echo 2
-    | run step3 echo 3
-    | run step4 echo 4
+    | step step1 echo 1
+    | step step2 echo 2
+    | step step3 echo 3
+    | step step4 echo 4
 
 The following prints out "3" and "4":
 
     |
-    | step --from step3 example.sh
+    | run --from step3 example.sh
 
 The following prints out "1" and "2": 
 
     |
-    | step --to step2 example.sh
+    | run --to step2 example.sh
 
 The following prints out "2" and "3": 
 
     |
-    | step --from step2 --to step3 example.sh
+    | run --from step2 --to step3 example.sh
 
 The following prints out "2" and "4": 
 
     |
-    | step --skip step2 --skip step4 example.sh
+    | run --skip step2 --skip step4 example.sh
  
 Dry run the above command with:
 
     |
-    | step --list --skip step2 --skip step4 example.sh
+    | run --list --skip step2 --skip step4 example.sh

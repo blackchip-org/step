@@ -19,4 +19,9 @@ set -e
 DESTDIR=~/rpmbuild/SOURCES
 
 mkdir -p $DESTDIR
-git archive --prefix=step/ HEAD | gzip > $DESTDIR/step.tar.gz
+tar cjvf \
+    $DESTDIR/step.tar.bz2 \
+    --transform="s,^,step/," \
+    --exclude=".git" \
+    *
+

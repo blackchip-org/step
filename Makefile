@@ -18,16 +18,16 @@ all: man
 
 man:
 	mkdir -p build/man
-	rst2man doc/step.1.rst build/man/step.1 
-	cat build/man/step.1 | gzip > build/man/step.1.gz
+	rst2man doc/run.1.rst build/man/run.1 
+	cat build/man/run.1 | gzip > build/man/run.1.gz
 
 install:
 	install -m 755 -d $(DESTDIR)/bin
-	install -m 755 step.sh $(DESTDIR)/bin/step
+	install -m 755 bin/run $(DESTDIR)/bin/run
 	install -m 755 -d $(DESTDIR)/share
-	install -m 644 step.lib.sh $(DESTDIR)/share/step
+	install -m 644 share/step $(DESTDIR)/share
 	install -m 755 -d $(DESTDIR)/share/man/man1
-	install -m 644 build/man/step.1.gz $(DESTDIR)/share/man/man1/step.1.gz
+	install -m 644 build/man/run.1.gz $(DESTDIR)/share/man/man1/run.1.gz
 
 clean:
 	rm -rf build
