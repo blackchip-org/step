@@ -35,5 +35,5 @@ expected() {
 EOF
 }
 
-diff <($RUN --command $BASEDIR/prog/step4.sh 2>&1) <(expected) >/dev/null
+diff <($RUN --debug $BASEDIR/prog/step4.sh 2>&1) <(expected) >/dev/null
 

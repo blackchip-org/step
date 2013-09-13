@@ -32,6 +32,6 @@ program: step4_banner_override.sh, step: step4
 EOF
 }
 
-diff <($RUN --banner $BASEDIR/prog/step4_banner_override.sh) \
+diff <($RUN --verbose $BASEDIR/prog/step4_banner_override.sh) \
     <(expected) >/dev/null
 

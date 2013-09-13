@@ -36,5 +36,5 @@ expected() {
 EOF
 }
 
-diff <($RUN --banner $BASEDIR/prog/step4.sh) <(expected) >/dev/null
+diff <($RUN --verbose $BASEDIR/prog/step4.sh) <(expected) >/dev/null
 

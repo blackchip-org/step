@@ -19,29 +19,35 @@ VERSION="2.0.0"
 
 usage() {
     cat <<EOF
-Usage: $PROG [options] command...
+Usage: $PROG [options] <script> [arguments...]
 
 Options:
-    -b, --banner         Show banner before running each step
-    -c, --command        Show command to be exected in each step
-    -d, --debug          Set x flag after arguments have been processed
-    -f, --from STEP      Start exection of command at STEP
-    -h, --help           Prints this usage
-    -l, --list           List available steps
-    -o, --only STEP      Only run STEP in command
-    -s, --skip STEP      Run command and skip STEP. This option can be
-                         specified multiple times to skip additional steps
-    -t, --to STEP        Run command and stop at STEP
-    -v, --verbose        Same as specifying --banner and --command
-    --version            Prints the version of this command
+  -a, --after STEP       Start execution of script after STEP.
+  -b, --before STEP      Execute steps from the beginning of the script and 
+                         stop before STEP.
+  -d, --debug            For each step, print out the command before 
+                         execution.
+  -f, --from STEP        Start execution of script at STEP.
+  -h, --help             Prints this usage.
+  -i, --include PATH     Include steps along PATH that are not normally 
+                         followed.
+  -l, --list             List available steps.
+  -o, --only STEP        Skip all steps except for STEP. Can be specified
+                         multiple times to select a set of steps to run.
+  -s, --skip {STEP,PATH} Execute and skip STEP or do not follow steps in
+                         PATH. This option can be specified multiple times to
+                         skip additional steps
+  -t, --to STEP          Run command and stop at STEP
+  -v, --verbose          Print out banners before each step.
+  --version              Prints the version of this package.
 
 Notes:
-    If no options are specified, all steps in command are executed.
+    If no options are specified, all steps in the script are executed.
 EOF
 }
 
-export __RUN_SHORT_OPTS="bcdf:hlo:s:t:v"
-export __RUN_LONG_OPTS="banner,command,debug,from:,help,list,only:,skip:,to:,verbose,version"
+export __RUN_SHORT_OPTS="a:b:df:hi:lo:s:t:v"
+export __RUN_LONG_OPTS="after:,before:,debug,from:,help,include:,list,only:,skip:,to:,verbose,version"
 
 ARGS=$(getopt -o "$__RUN_SHORT_OPTS" -l "$__RUN_LONG_OPTS" -n "$PROG" -- $@ )
 
@@ -54,11 +60,11 @@ eval set -- "$@"
 
 while true; do
     case "$1" in
-	--from|-f|--only|-o|--skip|-s|--to|-t)
+	--after|-a|--before|-b|--from|-f|--only|-o|--skip|-s|--to|-t)
 	    __RUN_ARGS="$__RUN_ARGS $1 $2"
 	    shift 2
 	    ;;
-	--banner|-b|--command|-c|--list|-l|-d|--debug|--verbose|-v)
+	--debug|-d|-l|--list|-v|--verbose)
 	    __RUN_ARGS="$__RUN_ARGS $1"
 	    shift
 	    ;;

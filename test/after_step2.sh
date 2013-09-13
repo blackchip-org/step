@@ -14,27 +14,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# TEST: Check that step banners are printed when using the -b option
+# TEST: Check that steps before --from are not executed
 
 BASEDIR=$(dirname "$0")
 RUN="$BASEDIR"/../bin/run
 
 expected() {
     cat <<EOF
-
-===== step4.sh: step1
-1
-
-===== step4.sh: step2
-2
-
-===== step4.sh: step3
 3
-
-===== step4.sh: step4
 4
 EOF
 }
 
-diff <($RUN -v $BASEDIR/prog/step4.sh) <(expected) >/dev/null
+diff <($RUN --after step2 $BASEDIR/prog/step4.sh) <(expected) >/dev/null
 

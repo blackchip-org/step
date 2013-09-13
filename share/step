@@ -25,17 +25,19 @@ __RUN_SKIPS=""
 
 while true; do 
     case "$1" in
-	--banner|-b)
-	    __RUN_BANNER=1
-	    shift
+	--after|-a)
+	    __RUN_AFTER=$2
+	    __RUN_DISABLED=1
+	    __RUN_STEP_REQUESTED=$2
+	    shift 2
 	    ;;
-	--command|-c)
-	    __RUN_COMMAND=1
-	    shift
+	--before|-b)
+	    __RUN_BEFORE=$2
+	    __RUN_STEP_REQUESTED=$2
+	    shift 2
 	    ;;
-	--verbose|-v)
-	    __RUN_BANNER=1
-	    __RUN_COMMAND=1
+	--debug|-d)
+	    __RUN_DEBUG=1
 	    shift
 	    ;;
 	--only|-o)
@@ -66,6 +68,10 @@ while true; do
 	    __RUN_DEBUG=1
 	    shift
 	    ;;
+	--verbose|-v)
+	    __RUN_BANNER=1
+	    shift
+	    ;;
 	--)
 	    shift
 	    break
@@ -78,7 +84,7 @@ done
 
 # Banner to be shown before each step is executed when using the --banner
 # option. Override by assigning another banner command to the
-# RUN_BANNER variable
+# RUN_PRINT_BANNER variable
 __run_banner() {
     local prog=$1
     local step=$2
@@ -87,15 +93,7 @@ __run_banner() {
 }
 RUN_BANNER=__run_banner
 
-# If the --command option is used to print out the commands to be executed,
-# this prints out inline commands (function calls set +x). Override by 
-# assigning another command to the RUN_COMMAND variable
-__run_command() {
-    echo "+ $@"
-}
-RUN_COMMAND=__run_command
-
-if [ "$__RUN_DEBUG" ] ; then
+if [ "$__RUN_SET_X" ] ; then
     set -x
 fi
 
@@ -163,6 +161,11 @@ step() {
         unset __RUN_DISABLED
     fi
 
+    # Stop executing steps if this is the step listed in --before
+    if [ "$step" == "$__RUN_BEFORE" ] ; then
+	__RUN_DISABLED=true
+    fi
+
     # Is this a step to be skipped?
     case "$__RUN_SKIPS" in
 	*__RUN_SKIP_${step}*)
@@ -176,6 +179,10 @@ step() {
     if [ "$__RUN_DISABLED" ] ; then
 	if [ "$__RUN_SKIPPED" ] ; then
 	    __RUN_DISABLED=$__RUN_PREVIOUS_DISABLED
+	fi
+        # Enable execution if this is the step specified in --after
+	if [ "$step" == "$__RUN_AFTER" ] ; then
+	    unset __RUN_DISABLED
 	fi
         return 0
     fi
@@ -199,13 +206,13 @@ step() {
 	fi
 
 	# If printing commands...
-	if [ "$__RUN_COMMAND" ] ; then
+	if [ "$__RUN_DEBUG" ] ; then
 	    # If it is a function, let bash do the work
 	    if [ "$is_function" ] ; then
 		set -x
 	    # If inline, print it out
 	    else
-		$RUN_COMMAND "$@"
+		echo "+ $@"
 	    fi
 	fi
 
@@ -219,8 +226,8 @@ step() {
 	if [ $return_code -ne 0 ] ; then
 	    exit $return_code
 	fi
-	if [ "$__RUN_DEBUG" ] ; then
-	    # But turn command printing back on if in debug mode
+	if [ "$__RUN_SET_X" ] ; then
+	    # But turn command printing back on if debugging this script
 	    set -x
 	fi
     fi
@@ -230,6 +237,7 @@ step() {
     if [ "$step" == "$__RUN_TO" ] ; then
         __RUN_DISABLED=1
     fi
+
     return $return_code
 }
 

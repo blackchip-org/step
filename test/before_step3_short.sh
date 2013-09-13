@@ -14,22 +14,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# TEST: Check that only one step is executed with -o
+
 BASEDIR=$(dirname "$0")
+RUN="$BASEDIR"/../bin/run
 
-. $BASEDIR/../../share/step
-
-my_command() {
-    echo "COMMAND: $@"
+expected() {
+    cat <<EOF
+1
+2
+EOF
 }
-RUN_COMMAND=my_command
 
-step step1 \
-    echo "1"
-step step2 \
-    echo "2"
-step step3 \
-    echo "3"
-step4() {
-    echo "4"
-}
-step -f step4 
+diff <($RUN -b step3 $BASEDIR/prog/step4.sh) <(expected) >/dev/null
+

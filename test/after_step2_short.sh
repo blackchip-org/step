@@ -14,27 +14,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# TEST: Check that command printing can be overriden
+# TEST: Check that steps before --f are not executed  
 
 BASEDIR=$(dirname "$0")
 RUN="$BASEDIR"/../bin/run
 
 expected() {
     cat <<EOF
-COMMAND: echo 1
-1
-COMMAND: echo 2
-2
-COMMAND: echo 3
 3
-+ step4
-+ echo 4
 4
-+ local return_code=0
-+ set +x
 EOF
 }
 
-diff <($RUN --command $BASEDIR/prog/step4_command_override.sh 2>&1) \
-    <(expected) >/dev/null
+diff <($RUN -a step2 $BASEDIR/prog/step4.sh) <(expected) >/dev/null
 
