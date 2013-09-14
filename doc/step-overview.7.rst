@@ -74,8 +74,9 @@ provides the *step* command used for specifying a step.
 Creating a script that can be executed even if step is not installed can
 be done easily by mocking out the *step* command:
 
-|
-| [ -e /usr/share/step ] && . /usr/share/step || step() { shift; "$@"; }
+    |
+    | [ "$STEP" ] || STEP=/usr/share/step
+    | [ -e "$STEP" ] && . "$STEP" || step() { shift; "$@"; }
 
 *run* simply controls the conditional execution of *step* commands. All
 other commands in the script that do not use *step* are executed
