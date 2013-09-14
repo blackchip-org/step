@@ -43,6 +43,11 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Sun Sep 15 2013 Mike McGann <mike.mcgann@blackchip.org> - 2.0.0-1
+- Swapped run/step usage
+- Added --before, --after options
+- Options --verbose and --debug instead of --banner and --command
+
 * Mon Sep 2 2013 Mike McGann <mike.mcgann@blackchip.org> - 1.0.1-1
 - Fixes 12 and 13
 
