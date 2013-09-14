@@ -18,16 +18,39 @@ all: man
 
 man:
 	mkdir -p build/man
-	rst2man doc/run.1.rst build/man/run.1 
+	rst2man doc/step-overview.7.rst build/man/step-overview.7 
+	cat build/man/step-overview.7 | gzip > build/man/step-overview.7.gz
+	rst2man doc/run.1.rst build/man/run.1
 	cat build/man/run.1 | gzip > build/man/run.1.gz
+	rst2man doc/step.7.rst build/man/step.7
+	cat build/man/step.7 | gzip > build/man/step.7.gz
 
 install:
 	install -m 755 -d $(DESTDIR)/bin
 	install -m 755 bin/run $(DESTDIR)/bin/run
 	install -m 755 -d $(DESTDIR)/share
 	install -m 644 share/step $(DESTDIR)/share
+
 	install -m 755 -d $(DESTDIR)/share/man/man1
-	install -m 644 build/man/run.1.gz $(DESTDIR)/share/man/man1/run.1.gz
+	cp build/man/*.1.gz $(DESTDIR)/share/man/man1
+
+	install -m 755 -d $(DESTDIR)/share/man/man7
+	cp build/man/*.7.gz $(DESTDIR)/share/man/man7
+
+	install -m 755 -d $(DESTDIR)/share/doc/step/examples
+	cp examples/* $(DESTDIR)/share/doc/step/examples
+
+.PHONY: test
+test:
+	etc/run_tests.sh
+
+rpm: man
+	etc/make_artifact.sh
+	mkdir -p build/rpm/BUILD
+	mkdir -p build/rpm/BUILDROOT
+	rpmbuild -ba \
+		--define _topdir\ "${PWD}/build/rpm" \
+		etc/step.spec
 
 clean:
 	rm -rf build

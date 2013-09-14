@@ -23,21 +23,18 @@ Usage: $PROG [options] <script> [arguments...]
 
 Options:
   -a, --after STEP       Start execution of script after STEP.
-  -b, --before STEP      Execute steps from the beginning of the script and 
-                         stop before STEP.
+  -b, --before STEP      Run from the beginning of the script and stop 
+                         before STEP.
   -d, --debug            For each step, print out the command before 
-                         execution.
+                         execution. If the step is a function, turn the x 
+                         flag on to print out the execution of each command.
   -f, --from STEP        Start execution of script at STEP.
   -h, --help             Prints this usage.
-  -i, --include PATH     Include steps along PATH that are not normally 
-                         followed.
   -l, --list             List available steps.
-  -o, --only STEP        Skip all steps except for STEP. Can be specified
-                         multiple times to select a set of steps to run.
-  -s, --skip {STEP,PATH} Execute and skip STEP or do not follow steps in
-                         PATH. This option can be specified multiple times to
-                         skip additional steps
-  -t, --to STEP          Run command and stop at STEP
+  -o, --only STEP        Skip all steps except for STEP. 
+  -s, --skip STEP        Execute script and skip STEP. Can be specified 
+                         multiple times to select a set of steps to skip.
+  -t, --to STEP          Run script and stop after executing STEP.
   -v, --verbose          Print out banners before each step.
   --version              Prints the version of this package.
 

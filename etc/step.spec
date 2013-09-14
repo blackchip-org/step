@@ -39,6 +39,7 @@ rm -rf %{buildroot}
 %{_bindir}/*
 %{_datadir}/step
 %{_mandir}/*/*
+%{_docdir}/step
 
 
 %changelog

@@ -2,12 +2,12 @@
 run
 ===
 
------------------------------------------
-Executes a bash script with defined steps
------------------------------------------
+-----------------------------------------------------
+Runs a bash script and selects which steps to execute
+-----------------------------------------------------
 
 :Author: blackchip.org
-:Date: August 10, 2013
+:Date: September 14, 2013
 :Copyright: 2013, blackchip.org
 :Version: 2.0
 :Manual section: 1
@@ -16,152 +16,51 @@ Executes a bash script with defined steps
 SYNOPSIS
 ========
 
-run [options] command...
+run [options] script [arguments...]
 
 DESCRIPTION
 ===========
-
-This can be useful for creating processing steps in which each step
-could take a long time to execute. For example, let's say we have the
-following script:
-
-    |
-    | think --about life
-    | think --about universe
-    | think --about everything
-    | analyze
-    | compute_answer
-
-This can all be done by hand, but it is much easier to put this into a
-script if it ever needs to be regenerated. The problem is that these
-operations can take a long time and it can be easy to make mistakes
-while creating this script.
-
-With step, you can do this instead:
-
-    |
-    | step life        think --about life
-    | step universe    think --about universe
-    | step everything  think --about everything
-    | step analyze     analyze
-    | step answer      compute_answer
-
-Call this script answer.sh. Run the script normally:
-
-    |
-    | answer.sh
-
-And all operations are executed in order. But the answer is 56 which
-is incorrect. While debugging, there is a problem with the universe
-step. Fix it and check its output by only executing that command:
-
-    |
-    | run --only universe answer.sh
-
-Once that is working, see if the output from all the thinking looks
-okay before computing the answer:
-
-    |
-    | run --to everything answer.sh
-
-Now finish it up:
-
-    | 
-    | run --from analyze answer.sh
+Executes a script and selects which steps to run. If no options are specified
+with run, the entire script is executed. 
 
 OPTIONS
 =======
+--after step, -a       Start execution of script after *step*. This is useful
+                       when debugging a faulty step. Once the error with the
+                       step has been fixed, this can be used to continue 
+                       execution using the name of the faulty step without
+                       having to look up the name of the next step.
 
---banner, -b      Print out a banner before running each step. The
-                  banner will be in the format of::
- 
-                       ===== prog: step
+--before step, -b      Run from the beginning of the script and and stop 
+                       before *step*. This is useful when fixing an error in 
+                       a step and verifying that all previous steps are still
+                       valid.
 
-                  where *prog* is the name of the program being exceuted
-                  and *step* is the name of the step.
- 
---command, -c     Print out the commands of each step as they are
-                  executed. If run with the --function option, the
-                  x bash option is set while the function is
-                  executing.
+--debug, -d            For each step, print out the command before execution.
+                       If the step is a function, turn the x flag on to print
+                       out the execution of each command.
 
---from STEP, -f   Start execution of commands starting with *STEP*.
+--from step, -f        Start execution of the script at *step*.
 
---help, -h        Prints out a summary of usage for this command.
+--help, -h             Prints out usage information.
 
---list, -l        Prints out a list of available steps. This can also
-                  used to perform a dry-run of which steps will be
-                  executed. 
+--list, -l             Lists all available steps.
 
---only STEP, -o   Only run the specified *STEP* and skip all others.
+--only step, -o        Skip all steps except for *step*. 
 
---skip STEP, -s   Execute all steps execpt for the specified
-                  *STEP*. This option can be listed multiple times on
-		  the command line to skip more than one step.
- 
---to STEP, -t     Stop execution of commands after *STEP*.
+--skip step, -s        Execute script but skip over *step*. Can be specified
+                       multiple times to select a set of steps to skip.
 
---verbose, -v     The same as using the *--banner* and *--command*
-                  options.
+--to step, -t          Run script and stop after executing *step*.
 
---version         Prints the version number of this command
+--verbose, -v          Print out banners before each step.
 
-NOTES
-=====
+--version              Prints the version of this package
 
-Scripts to be executed using step should source either /usr/share/step
-or /usr/local/share/step depending on the installation location. This
-provides the *step* command used for specifying a step.
 
-*run* simply controls the conditional execution of *step* commands. All
-other commands in the script that do not use *step* are executed
-unconditionally. 
-
-Steps that involve more than one command are best placed in a
-function:
-
-    |
-    | step1() {
-    |     echo "command 1"
-    |     echo "command 2"
-    | }
-    | step -f step1
-
-When using *step*, an *-f* or *--function* option indicates that
-the name of the step is also the name of the function to be executed.
-
-EXAMPLES
+SEE ALSO
 ========
+step(7),
+step-overview(7)
 
-Given the following script, named example.sh:
 
-    |
-    | step step1 echo 1
-    | step step2 echo 2
-    | step step3 echo 3
-    | step step4 echo 4
-
-The following prints out "3" and "4":
-
-    |
-    | run --from step3 example.sh
-
-The following prints out "1" and "2": 
-
-    |
-    | run --to step2 example.sh
-
-The following prints out "2" and "3": 
-
-    |
-    | run --from step2 --to step3 example.sh
-
-The following prints out "2" and "4": 
-
-    |
-    | run --skip step2 --skip step4 example.sh
- 
-Dry run the above command with:
-
-    |
-    | run --list --skip step2 --skip step4 example.sh

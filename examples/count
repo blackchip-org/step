@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# Copyright 2013 blackchip.org
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+[ "$STEP" ] || STEP=/usr/share/step
+. $STEP
+
+step 1 echo "one"
+step 2 echo "two"
+step 3 echo "three"
+step 4 echo "four"
+step 5 echo "five"
+step 6 echo "six"
+step 7 echo "seven"
+step 8 echo "eight"
+step 9 echo "nine"

@@ -14,14 +14,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-set -e
+BASEDIR=$(dirname "$0")/..
+TESTS=$(ls $BASEDIR/test/*.sh)
+FAILED=0
+PASSED=0
+for TEST in $TESTS; do 
+    if $TEST; then
+	RESULT="pass" 
+	PASSED=$(($PASSED + 1))
+    else
+	RESULT="FAIL"
+	FAILED=$(($FAILED + 1))
+    fi
+    echo "$RESULT: $(basename $TEST)"
+done
 
-DESTDIR=~/rpmbuild/SOURCES
-
-mkdir -p $DESTDIR
-tar cjvf \
-    $DESTDIR/step.tar.bz2 \
-    --transform="s,^,step/," \
-    --exclude=".git" \
-    *
-
+echo ""
+echo "Passed: $PASSED, Failed: $FAILED"
+if [ $FAILED -gt 0 ] ; then
+    exit 1
+fi
