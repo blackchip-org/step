@@ -84,10 +84,14 @@ Given the following script, named example.sh:
     #!/bin/bash
     . /usr/share/step
 
-    step step1 echo 1
-    step step2 echo 2
-    step step3 echo 3
-    step step4 echo 4
+    step step1 \
+        echo 1
+    step step2 \
+        echo 2
+    step step3 \
+        echo 3
+    step step4 \
+        echo 4
 
 The following prints out "3" and "4":
 

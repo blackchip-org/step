@@ -25,7 +25,7 @@ man:
 	rst2man doc/step.7.rst build/man/step.7
 	cat build/man/step.7 | gzip > build/man/step.7.gz
 
-install:
+install: man
 	install -m 755 -d $(DESTDIR)/bin
 	install -m 755 bin/run $(DESTDIR)/bin/run
 	install -m 755 -d $(DESTDIR)/share
