@@ -19,11 +19,16 @@ take a long time and it is easy to make mistakes while creating this script.
 
 With step, you can do this instead:
 
-    step life think --about life
-    step universe think --about universe
-    step everything think --about everything
-    step analyze analyze
-    step answer compute_answer
+    step life \
+        think --about life
+    step universe \
+        think --about universe
+    step everything \
+        think --about everything
+    step analyze \
+        analyze
+    step answer \
+        compute_answer
 
 Call this script answer.sh. Run the script normally:
 
