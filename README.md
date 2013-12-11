@@ -105,7 +105,7 @@ The following prints out "2" and "3":
 
     run --from step2 --to step3 example.sh
 
-The following prints out "2" and "4":
+The following prints out "1" and "3":
 
     run --skip step2 --skip step4 example.sh
 
