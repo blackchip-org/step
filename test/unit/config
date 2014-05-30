@@ -1,0 +1,3 @@
+RUN=$BASEDIR/../../run
+FX=$BASEDIR/../fixtures
+
