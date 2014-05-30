@@ -1,0 +1,7 @@
+#!/bin/bash
+
+echo -n "Computing answer... "
+sleep 15
+echo "42."
+
+

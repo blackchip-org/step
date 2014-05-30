@@ -1,0 +1,18 @@
+#!/bin/bash
+
+BASEDIR=$(dirname "$0")
+
+. $BASEDIR/../step
+PATH=${PATH}:${BASEDIR}
+
+step life \
+    think --about life
+step universe \
+    think --about universe
+step everything \
+    think --about everything
+step analyze \
+    analyze
+step compute \
+    compute
+

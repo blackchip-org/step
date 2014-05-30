@@ -1,0 +1,20 @@
+#!/bin/bash
+
+case "$2" in
+    life)
+        echo -n "Thinking about life... "
+	sleep 3
+	echo "done."
+	;;
+    universe)
+        echo -n "Thinking about the universe... "
+	sleep 4
+	echo "done."
+	;;
+    everything)
+        echo -n "Thinking about everything... "
+	sleep 5
+	echo "done."
+	;;
+esac
+

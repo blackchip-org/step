@@ -1,0 +1,7 @@
+#!/bin/bash
+
+echo -n "Analyzing... "
+sleep 7
+echo "done."
+
+
