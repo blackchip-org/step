@@ -97,8 +97,8 @@ if [ "$__RUN_SET_X" ] ; then
     set -x
 fi
 
-__STEP_SHORT_OPTS="f"
-__STEP_LONG_OPTS="function"
+__STEP_SHORT_OPTS="fs:"
+__STEP_LONG_OPTS="function,section:"
 
 __step_usage() {
     cat <<EOF
@@ -107,6 +107,7 @@ Usage: step [options] <name> command...
 Options:
     -f, --function      The name of the step is also the name of the function
                         to be executed. 
+    -s, --section NAME  Start a section with the given NAME
 EOF
 }
 
@@ -127,6 +128,12 @@ step() {
 		local is_function=true
 		shift
 		;;
+	    -s|--section)
+		local is_section=true
+		step="$2"
+		__RUN_SECTION=$2
+		shift 2
+		;;
 	    --)
                 shift
 		break
@@ -137,7 +144,7 @@ step() {
 	esac
     done
 
-    step="$1"
+    [ "$step" ] || step="$1"
     shift
     if [ ! "$step" ] ; then
 	__run_error "No step specified"
@@ -145,15 +152,23 @@ step() {
 	exit 1
     fi
 
-    if [ ! "$is_function" ] && [ "$#" -eq 0 ] ; then
+    if [ ! "$is_function" ] && [ ! "$is_section" ] && [ "$#" -eq 0 ] ; then
 	__run_error "No command specified in step"
 	__step_usage
 	exit 1
     fi
 
     # Skip if only a specific step is to be run and this is not the step
-    if [ "$__RUN_ONLY" ] && [ "$step" != "$__RUN_ONLY" ] ; then
-        return 0
+    if [ "$__RUN_ONLY" ] ; then
+	local is_only=""
+	if [ "$__RUN_SECTION" = "$__RUN_ONLY" ] ; then
+	    is_only=1
+	elif [ "$step" = "$__RUN_ONLY" ] ; then
+	    is_only=1
+	fi
+	if [ ! "$is_only" ] ; then
+	    return 0
+	fi
     fi
 
     # Start executing steps if this is the step listed in --from
@@ -169,12 +184,32 @@ step() {
     # Is this a step to be skipped?
     case "$__RUN_SKIPS" in
 	*__RUN_SKIP_${step}*)
+            if [ "$step" = "$__RUN_SECTION" ] ; then
+		__RUN_AFTER_SECTION=$__RUN_SECTION
+	    fi
             __RUN_SKIPPED=1
 	    __RUN_PREVIOUS_DISABLED=$__RUN_DISABLED
 	    __RUN_DISABLED=1
 	    ;;
     esac
 
+    #echo "#1 disabled: $__RUN_DISABLED after: $__RUN_AFTER_SECTION"
+    if [ "$__RUN_DISABLED" ] ; then
+	if [ "$__RUN_AFTER_SECTION" ] ; then
+	    if [ "$__RUN_SECTION" != "$__RUN_AFTER_SECTION" ]; then 
+		unset __RUN_DISABLED
+		unset __RUN_AFTER_SECTION
+	    else
+		return 0
+	    fi
+	elif [ "$__RUN_SECTION" ] && \
+	        [ "$__RUN_SECTION" == "$__RUN_AFTER" ] ; then
+	    __RUN_AFTER_SECTION=$__RUN_SECTION
+	    return 0
+	fi
+    fi
+
+    #echo "#2 checking $step $__RUN_SECTION $__RUN_AFTER_SECTION"
     # Exit now if this step should not be run
     if [ "$__RUN_DISABLED" ] ; then
 	if [ "$__RUN_SKIPPED" ] ; then
@@ -196,7 +231,11 @@ step() {
 
     # If just listing steps, show it now
     if [ "$__RUN_LIST" ] ; then
-	echo "$step"
+	if [ "$is_section" ] ; then
+	    echo "==== $step"
+	else
+	    echo "$step"
+	fi
     else
 	# If the --function option was used, the step name is also the
 	# function to be executed
