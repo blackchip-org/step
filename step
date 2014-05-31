@@ -103,14 +103,15 @@ if [ "$__RUN_SET_X" ] ; then
     set -x
 fi
 
-__STEP_SHORT_OPTS="fs:"
-__STEP_LONG_OPTS="function,section:"
+__STEP_SHORT_OPTS="fs:e"
+__STEP_LONG_OPTS="function,section:,end-section"
 
 __step_usage() {
     cat <<EOF
 Usage: step [options] <name> command...
 
 Options:
+    -e, --end-section   Ends the current section
     -f, --function      The name of the step is also the name of the function
                         to be executed. 
     -s, --section NAME  Start a section with the given NAME
@@ -139,6 +140,10 @@ step() {
 		step="$2"
 		__RUN_SECTION=$2
 		shift 2
+		;;
+	    -e|--end-section)
+		unset __RUN_SECTION
+		return 0
 		;;
 	    --)
                 shift
