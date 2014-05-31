@@ -14,7 +14,8 @@ Follow along with this overview by cloning the repository, changing to the
 `example` directory and adding it to your path:
 
 ```bash
-export PATH=${PATH}:$(PWD)
+cd example
+export PATH=${PATH}:$PWD:$PWD/..
 ```
 
 This utility can be useful for creating processing steps in a bash script. For
@@ -86,13 +87,6 @@ absolute or relative path.
 Do what you want.
 
 ## Details
-
-Creating a script that can be executed even if step is not installed can be
-done easily by mocking out the step command:
-
-```bash
-[ -e "/path/to/step" ] || step() { shift; "$@"; }
-```
 
 ``run`` simply controls the conditional execution of step commands. All other
 commands in the script that do not use step are executed unconditionally.
@@ -201,18 +195,18 @@ run --list --skip step2 --skip step4 example
 
 ## Manual Page: run
 
-### SYNOPSIS
+##### Synopsis
 
 ```
 run [options] script [arguments...]
 ```
 
-### DESCRIPTION
+##### Description
 
 Executes a script and selects which steps to run. If no options are specified 
 with run, the entire script is executed.
 
-### OPTIONS
+##### Options
 
 `--after, -a STEP`
 
@@ -223,7 +217,7 @@ look up the name of the next step.
     
 `--before, -b STEP`
 
-Run from the beginning of the script and and stop before STEP. This is 
+Run from the beginning of the script and and stop before `STEP`. This is 
 useful when fixing an error in a step and verifying that all previous 
 steps are still valid.
      
@@ -241,6 +235,7 @@ Start execution of the script at `STEP`.
 Prints out usage information.
 
 `--list, -l`
+
 Lists all available steps.
 
 `--only, -o STEP`
@@ -260,16 +255,17 @@ Run script and stop after executing step.
 
 Print out banners before each step.
 
-`--version`	
+`--version`
+	
 Prints the version of this program.
 
-### BUGS
+##### Bugs
 
 This relies on a sane `getopt` which Mac OS X does not have.
 
 ## Manual Page: step
 
-#### SYNOPSIS
+##### Synopsis
 
 ```bash
 step NAME command [arguments...]
@@ -277,11 +273,11 @@ step -f FUNCTION
 step -s SECTION
 ```
 
-### DESCRIPTION
+##### Description
 
 Marks a command, function, or section as a step.
 
-### OPTIONS
+##### Options
 
 `--function, -f FUNCTION`
 	
@@ -298,7 +294,7 @@ This can be replaced with:
 step -f foo args
 ```
 
-`--section, -s NAME`
+`--section, -s NAME`   
 
 Defines a section with `NAME`
 
