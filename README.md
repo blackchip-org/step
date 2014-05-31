@@ -162,37 +162,37 @@ step step4 \
 The following prints out `3` and `4`:
 
 ```bash
-run --from step3 example.sh
+run --from step3 example
 ```
 
 The following prints out `1` and `2`:
 
 ```bash
-run --to step2 example.sh
+run --to step2 example
 ```
 
 The following prints out `2` and `3`:
 
 ```bash
-run --from step2 --to step3 example.sh
+run --from step2 --to step3 example
 ```
 
 The following prints out `1` and `3`:
 
 ```bash
-run --skip step2 --skip step4 example.sh
+run --skip step2 --skip step4 example
 ```
 
 List all steps with:
 
 ```bash
-run --list example.sh
+run --list example
 ```
 
 List can also be used as a dry-run to see what steps will be executed:
 
 ```bash
-run --list --skip step2 --skip step4 example.sh
+run --list --skip step2 --skip step4 example
 ```
 
 ## Manual Page: run
