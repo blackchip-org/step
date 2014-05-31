@@ -139,6 +139,20 @@ The arctic section an be run by itself with:
 run --only arctic ./the_script
 ```
 
+To end a section without defining a new one, use `-e` or `--end-section`:
+
+```bash
+step intro ...
+
+step --section heavy-lifting
+step 1 ...
+step 2 ...
+step 3 ...
+step --end-section
+
+step outro ...
+```
+
 ## Examples
 
 Given the following script, named `example`:
@@ -195,18 +209,18 @@ run --list --skip step2 --skip step4 example
 
 ## Manual Page: run
 
-##### Synopsis
+#### Synopsis
 
 ```
 run [options] script [arguments...]
 ```
 
-##### Description
+#### Description
 
 Executes a script and selects which steps to run. If no options are specified 
 with run, the entire script is executed.
 
-##### Options
+#### Options
 
 `--after, -a STEP`
 
@@ -259,25 +273,30 @@ Print out banners before each step.
 	
 Prints the version of this program.
 
-##### Bugs
+#### Bugs
 
 This relies on a sane `getopt` which Mac OS X does not have.
 
 ## Manual Page: step
 
-##### Synopsis
+#### Synopsis
 
 ```bash
 step NAME command [arguments...]
-step -f FUNCTION
-step -s SECTION
+step {-f,--function} FUNCTION
+step {-s,--section} SECTION
+step {-e,--end-section}
 ```
 
-##### Description
+#### Description
 
 Marks a command, function, or section as a step.
 
-##### Options
+#### Options
+
+`--end-section, -e`
+
+Ends the current section
 
 `--function, -f FUNCTION`
 	
