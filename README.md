@@ -1,5 +1,7 @@
 # step 
 
+[![Build Status](https://travis-ci.org/blackchip-org/step.svg)](https://travis-ci.org/blackchip-org/step)
+
 Breaks bash scripts into steps.
 
 This may only be useful for me. Your mileage may vary.
