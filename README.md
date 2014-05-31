@@ -279,10 +279,10 @@ Marks a command, function, or section as a step.
 
 ### OPTIONS
 
-`--function, -f`
+`--function, -f FUNCTION`
 	
 When this option is used, the name of the step is also the name of the 
-function to execute. Instead of being redundant with:
+`FUNCTION` to execute. Instead of being redundant with:
 
 ```bash
 step foo foo args
@@ -293,3 +293,12 @@ This can be replaced with:
 ```bash
 step -f foo args
 ```
+
+`--section, -s NAME`
+
+Defines a section with `NAME`
+
+## License
+
+Licensed under the MIT license. See 
+[LICENSE.md](license.md) for more details. 
