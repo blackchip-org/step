@@ -6,6 +6,8 @@ Breaks bash scripts into steps.
 
 This may only be useful for me. Your mileage may vary.
 
+This does not work on Mac OS X. See the BUGS section for more information.
+
 ## Overview
 
 Follow along with this overview by cloning the repository, changing to the 
@@ -108,7 +110,7 @@ step -f step1
 When using step, an ``-f`` or ``--function`` option indicates that the name of the
 step is also the name of the function to be executed.
 
-Sometimes it us useful to create sections of steps. For example, if GIS data
+Sometimes it is useful to create sections of steps. For example, if GIS data
 needs to be clipped, reprojected, and dumped in various projections, a script
 may look like this:
 
