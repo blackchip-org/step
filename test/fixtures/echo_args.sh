@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Copyright (c) 2013 - 2014 blackchip.org
 # 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -18,6 +20,13 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-RUN=$BASEDIR/../../run
-FX=$BASEDIR/../fixtures
-. $BASEDIR/../../step
+BASEDIR=$(dirname "$0")
+. $BASEDIR/config
+
+it() {
+    echo "$1"
+    echo "$2"
+}
+#it "1" "2 2"
+step -f it 1 "2 2"
+

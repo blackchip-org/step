@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Copyright (c) 2013 - 2014 blackchip.org
 # 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -18,6 +20,16 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-RUN=$BASEDIR/../../run
-FX=$BASEDIR/../fixtures
-. $BASEDIR/../../step
+# TEST: Ensure all steps are run if no arguments are given
+
+BASEDIR=$(dirname "$0")
+. $BASEDIR/config
+
+expected() {
+    cat <<EOF
+1
+2 2
+EOF
+}
+
+diff <($RUN $FX/echo_args.sh) <(expected) >/dev/null

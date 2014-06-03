@@ -120,7 +120,7 @@ EOF
 
 step() {
     local step=""
-    local args=$(POSIXLY_CORRECT=1 getopt -o "$__STEP_SHORT_OPTS" -l "$__STEP_LONG_OPTS" -n "$__RUN_PROG" -- $@ )
+    local args=$(POSIXLY_CORRECT=1 getopt -o "$__STEP_SHORT_OPTS" -l "$__STEP_LONG_OPTS" -n "$__RUN_PROG" -- "$@" )
     if [ $? -ne 0 ] ; then
 	__step_usage
 	exit 1
